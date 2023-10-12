@@ -1,0 +1,81 @@
+<title></title>
+<!-- Add Animate.css via CDN -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
+<style type="text/css">/* Optional CSS styles for better presentation */
+    #sourceBank {
+            display: flex;
+            gap: 10px;
+        }
+
+        .draggable-img {
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+        }
+
+        #targetCircle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: lightblue;
+            text-align: center;
+            line-height: 100px;
+        }
+</style>
+<h1>Picture Survey</h1>
+
+<div id="sourceBank">
+<table>
+	<tbody>
+		<tr>
+			<td><img onclick="selectPicture('/upload/surveys/996739/images/picture1.png', 'answer1')" /></td>
+			<td><img onclick="selectPicture('/upload/surveys/996739/images/picture2.png', 'answer2')" /></td>
+			<td><img onclick="selectPicture('/upload/surveys/996739/images/picture3.png', 'answer3')" /></td>
+			<td><img onclick="selectPicture('/upload/surveys/996739/images/picture4.png', 'answer4')" /></td>
+			<td><img onclick="selectPicture('/upload/surveys/996739/images/picture5.png', 'answer5')" /></td>
+		</tr>
+	</tbody>
+</table>
+</div>
+
+<div id="targetCircle">Drop Desired Products Here!</div>
+<!-- Hidden input field to store the selected pictures --><input id="selectedPicturesInput" name="selectedpictures" type="hidden" /> <script>
+  const sourceBank = document.getElementById('sourceBank');
+const targetCircle = document.getElementById('targetCircle');
+const selectedPicturesInput = document.getElementById('selectedPicturesInput');
+
+let selectedImageIds = [];
+
+// Prevent default behavior for drag events
+sourceBank.addEventListener('dragover', (e) => {
+    e.preventDefault();
+});
+
+// Handle image drag start
+sourceBank.addEventListener('dragstart', (e) => {
+    e.dataTransfer.setData('text/plain', e.target.id);
+});
+
+// Handle image drop
+targetCircle.addEventListener('drop', (e) => {
+    e.preventDefault();
+    const imageId = e.dataTransfer.getData('text/plain');
+    const imageElement = document.getElementById(imageId);
+
+    if (imageElement && !selectedImageIds.includes(imageId)) {
+        // Clone the image and add it to the target circle
+        const clonedImage = imageElement.cloneNode(true);
+        clonedImage.classList.remove('draggable-img');
+        targetCircle.appendChild(clonedImage);
+
+        // Add the image ID to the selectedImageIds array
+        selectedImageIds.push(imageId);
+
+        // Update the hidden input value with the comma-separated list of selected image IDs
+        selectedPicturesInput.value = selectedImageIds.join(',');
+
+        // Reset the source image's draggable attribute so it can be dragged again
+        imageElement.setAttribute('draggable', 'true');
+    }
+});
+  </script>
