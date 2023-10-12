@@ -1,0 +1,110 @@
+<title></title>
+<!-- Add Animate.css via CDN -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
+<style type="text/css">/* Optional CSS styles for better presentation */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    h1 {
+      width: 100%;
+      text-align: center;
+    }
+
+    div {
+      margin: 20px;
+    }
+
+    table {
+      margin-bottom: 20px;
+    }
+
+    .selected-picture {
+      margin: 5px;
+      border: 2px solid blue;
+      cursor: pointer;
+    }
+
+    /* Animation class */
+    .animate-down {
+      animation: animateDown 0.5s;
+    }
+
+    /* Keyframes for the animation */
+    @keyframes animateDown {
+      from {
+        transform: translateY(-100%);
+      }
+      to {
+        transform: translateY(0);
+      }
+    }
+</style>
+<h1>Picture Survey</h1>
+
+<div>
+<table>
+	<tbody>
+		<tr>
+			<td><img src="./1.png" onclick="selectPicture('./1.png', 'answer1')" src="/upload/surveys/996739/images/picture1.png" /></td>
+			<td><img onclick="selectPicture('./2.png', 'answer2')" src="/upload/surveys/996739/images/picture2.png" /></td>
+			<td><img onclick="selectPicture('/upload/surveys/996739/images/picture3.png', 'answer3')" src="/upload/surveys/996739/images/picture3.png" /></td>
+			<td><img onclick="selectPicture('/upload/surveys/996739/images/picture4.png', 'answer4')" src="/upload/surveys/996739/images/picture4.png" /></td>
+			<td><img onclick="selectPicture('/upload/surveys/996739/images/picture5.png', 'answer5')" src="/upload/surveys/996739/images/picture5.png" /></td>
+		</tr>
+	</tbody>
+</table>
+</div>
+
+<div id="selectedPicturesContainer">
+<h2>Selected Pictures:</h2>
+</div>
+<!-- Hidden input field to store the selected pictures --><input id="selectedPicturesInput" name="selectedpictures" type="hidden" /> <script>
+    // Global variable to store the selected pictures
+    let selectedPictures = [];
+
+    // Function to handle picture selection and display selected pictures
+    function selectPicture(pictureUrl) {
+      const selectedPicturesContainer = document.getElementById('selectedPicturesContainer');
+
+      // Create a new image element for the selected picture
+      const imgElement = document.createElement('img');
+      imgElement.src = pictureUrl;
+      imgElement.classList.add('selected-picture');
+      imgElement.classList.add('animate-down'); // Add the animation class
+
+      // Append the selected picture to the container
+      selectedPicturesContainer.appendChild(imgElement);
+
+      // Store the selected picture URL in the array
+      selectedPictures.push(pictureUrl);
+
+      // Update the hidden input field with the selected pictures
+      const selectedPicturesInput = document.getElementById('selectedPicturesInput');
+      selectedPicturesInput.value = selectedPictures.join(';'); // Separate the URLs with a semicolon or any other delimiter of your choice
+
+      // Add click event listener to the selected picture for deletion
+      imgElement.addEventListener('click', function () {
+        deletePicture(this, pictureUrl);
+      });
+    }
+
+    // Function to handle deletion of selected picture
+    function deletePicture(imgElement, pictureUrl) {
+      // Remove the image element from the container
+      imgElement.parentNode.removeChild(imgElement);
+
+      // Remove the picture URL from the array
+      const index = selectedPictures.indexOf(pictureUrl);
+      if (index !== -1) {
+        selectedPictures.splice(index, 1);
+      }
+
+      // Update the hidden input field with the updated selected pictures
+      const selectedPicturesInput = document.getElementById('selectedPicturesInput');
+      selectedPicturesInput.value = selectedPictures.join(';'); // Separate the URLs with a semicolon or any other delimiter of your choice
+    }
+  </script>

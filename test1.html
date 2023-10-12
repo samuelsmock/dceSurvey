@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Drop Zone</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .circle-container {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            text-align: center;
+            line-height: 200px;
+            font-size: 16px;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .image-grid {
+            display: none;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+        }
+
+        .image-grid img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="circle-container" id="circle">
+        Drag img here
+    </div>
+    <div class="image-grid" id="imageGrid">
+        <!-- Images will be added here dynamically -->
+    </div>
+
+    <script>
+        const circle = document.getElementById('circle');
+        const imageGrid = document.getElementById('imageGrid');
+
+        circle.addEventListener('dragover', (e) => {
+            e.preventDefault();
+        });
+
+        circle.addEventListener('drop', (e) => {
+            e.preventDefault();
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                circle.style.display = 'none';
+
+                // Create and display the image grid
+                for (const file of files) {
+                    const img = document.createElement('img');
+                    img.src = URL.createObjectURL(file);
+                    imageGrid.appendChild(img);
+                }
+                imageGrid.style.display = 'flex';
+            }
+        });
+    </script>
+</body>
+</html>
