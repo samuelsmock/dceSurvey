@@ -1,0 +1,91 @@
+<style type="text/css">div {
+    margin: 0.5em 0;
+    padding: 2em;
+    }
+
+     #target{
+        width: 75vh;
+        height: 75vh;
+        border-radius: 50%;
+        background-color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        border-width: 5cap;
+        border-style: solid;      
+    }
+  
+    #source {
+    border: 1px solid black;
+    padding: 0.5rem;
+    }
+
+    .dragging {
+    background-color: pink;
+    }
+</style>
+<div>
+    <table>
+        <tbody>
+            <tr>
+                <!-- 
+                <td><img onclick="selectPicture('/upload/surveys/996739/images/picture1.png', 'answer1')" /></td>
+                <td><img onclick="selectPicture('/upload/surveys/996739/images/picture2.png', 'answer2')" /></td>
+                <td><img onclick="selectPicture('/upload/surveys/996739/images/picture3.png', 'answer3')" /></td>
+                <td><img onclick="selectPicture('/upload/surveys/996739/images/picture4.png', 'answer4')" /></td>
+                <td><img onclick="selectPicture('/upload/surveys/996739/images/picture5.png', 'answer5')" /></td>
+                -->
+                
+                <td><img src = 'https://fastly.picsum.photos/id/80/200/200.jpg?hmac=uEQ6yExxeaopTOWf3oByB8KMH6Eip3-AVLN5jEMthko' class = 'draggable-img' id="image1" draggable="true"/></td>
+                <td><img src = 'https://fastly.picsum.photos/id/955/200/200.jpg?hmac=_m3ln1pswsR9s9hWuWrwY_O6N4wizKmukfhvyaTrkjE' class = 'draggable-img' id="image2" draggable="true"/></td>
+                <td><img src = 'https://fastly.picsum.photos/id/585/200/200.jpg?hmac=xPWUtHiddZixyCUwkNykuZcN4myA3sY2ewf9zFRc7oM' class = 'draggable-img' id="image3" draggable="true" /></td>
+                <td><img src = 'https://fastly.picsum.photos/id/91/200/200.jpg?hmac=y-8iGl9dOkbHqADPlWuS-rWBHNBWWXlzKcsTDu2WeQo' class = 'draggable-img' id="image4" draggable="true" /></td>
+                <td><img src = 'https://fastly.picsum.photos/id/84/200/200.jpg?hmac=6H-uafgNQmg74KSd7tSKVP1PWLigkAnXdB_PyFgxXNA' class = 'draggable-img' id="image5" draggable="true" /></td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+<div id="target"><text id="promptText">Drop Desired Products Here!</text> <!-- this will be replaced by a <div class = imageGrid> in JavaScript --></div>
+<button id="reset">Reset example</button><script>
+   
+    const source = document.querySelectorAll(".draggable-img");
+   
+  source.forEach((image) =>{
+     image.addEventListener("dragstart", (ev) => {
+    console.log("dragStart");
+    // Change the source element's background color
+    // to show that drag has started
+    ev.currentTarget.classList.add("dragging");
+    // Clear the drag data cache (for all formats/types)
+    ev.dataTransfer.clearData();
+    // Set the drag's format and data.
+    // Use the event target's id for the data
+    ev.dataTransfer.setData("text/plain", ev.target.id);
+    });
+    image.addEventListener("dragend", (ev) =>
+    ev.target.classList.remove("dragging"),
+    );
+  }
+                )
+   
+
+    const target = document.querySelector("#target");
+    target.addEventListener("dragover", (ev) => {
+    console.log("dragOver");
+    ev.preventDefault();
+    });
+    target.addEventListener("drop", (ev) => {
+    console.log("Drop");
+    ev.preventDefault();
+    // Get the data, which is the id of the source element
+    const data = ev.dataTransfer.getData("text");
+    const source = document.getElementById(data);
+    ev.target.appendChild(source);
+    });
+
+    const reset = document.querySelector("#reset");
+    reset.addEventListener("click", () => document.location.reload());
+
+</script>

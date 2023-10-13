@@ -1,10 +1,110 @@
-<style>
-    div {
-    margin: 0.5em 0;
-    padding: 2em;
+<style type="text/css">
+
+    #parent{
+        display: flex
     }
 
-    #target,
+    #left-panel{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    /* Apply styles to the table */
+    #shoppingTable {
+        width: 100%; /* Make the table fill its parent container horizontally */
+        border-collapse: collapse; /* Merge cell borders for a cleaner look */
+    }
+
+    #shoppingTable th, #shoppingTable td {
+        border: 1px solid black; /* Add black borders to table cells */
+        padding: 8px;
+    }
+
+    #right-panel{
+        flex: 30;
+
+    }
+    #sourceBank {
+       
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            width: 20vw;
+            height: 20vh;
+            display: 'flex';
+            
+        }
+
+    .draggable-img {
+        width: 8vw;
+        margin-left:2vw;
+        cursor: pointer;
+    }
+
+    .stacked-img{
+        width: 110%;
+        height: 110%;
+        overflow: hidden;
+        border-radius: 50%;
+    }
+
+    #imageGrid{
+       
+        
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .dropped-image {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        border-radius: 50%;
+    }
+
+    .dropped-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    #targetCircle {
+        padding: 1vw;
+        width: 70vh;
+        height: 70vh;
+        border-radius: 50%;
+        background-color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        border-width: 5cap;
+        border-style: solid;
+       
+        
+    }
+
+    h1 {
+        text-align: center;
+        height: 5vh;
+    }
+
+
+     #target{
+        width: 75vh;
+        height: 75vh;
+        border-radius: 50%;
+        background-color: #fff;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        border-width: 5cap;
+        border-style: solid;      
+    }
+  
     #source {
     border: 1px solid black;
     padding: 0.5rem;
@@ -14,52 +114,158 @@
     background-color: pink;
     }
 </style>
+<h1>Picture Survey</h1>
+<div id = 'parent'>
+<div id = 'left-panel'>
 
-<div>
-  <p id="source" draggable="true">
-    Select this element, drag it to the drop zone and then release the selection
-    to move the element.
-  </p>
+    <table>
+        <tbody>
+            <tr>
+                <!-- 
+                <td><img src = '/upload/surveys/996739/images/picture1.png' class = 'draggable-img' id="Hard Cheese" draggable="true"/></td>
+                <td><img src = '/upload/surveys/996739/images/picture2.png' class = 'draggable-img' id="Yogurt" draggable="true"/></td>
+                <td><img src = '/upload/surveys/996739/images/picture3.png' class = 'draggable-img' id="Milk" draggable="true" /></td>
+                <td><img src = '/upload/surveys/996739/images/picture4.png' class = 'draggable-img' id="Soft Cheese" draggable="true" /></td>
+                <td><img src = '/upload/surveys/996739/images/picture5.png' class = 'draggable-img' id="Butter" draggable="true" /></td>
+                -->
+                
+                <td><img src = 'https://fastly.picsum.photos/id/80/200/200.jpg?hmac=uEQ6yExxeaopTOWf3oByB8KMH6Eip3-AVLN5jEMthko' class = 'draggable-img' id="image1" draggable="true"/></td>
+                <td><img src = 'https://fastly.picsum.photos/id/955/200/200.jpg?hmac=_m3ln1pswsR9s9hWuWrwY_O6N4wizKmukfhvyaTrkjE' class = 'draggable-img' id="image2" draggable="true"/></td>
+                <td><img src = 'https://fastly.picsum.photos/id/585/200/200.jpg?hmac=xPWUtHiddZixyCUwkNykuZcN4myA3sY2ewf9zFRc7oM' class = 'draggable-img' id="image3" draggable="true" /></td>
+                <td><img src = 'https://fastly.picsum.photos/id/91/200/200.jpg?hmac=y-8iGl9dOkbHqADPlWuS-rWBHNBWWXlzKcsTDu2WeQo' class = 'draggable-img' id="image4" draggable="true" /></td>
+                <td><img src = 'https://fastly.picsum.photos/id/84/200/200.jpg?hmac=6H-uafgNQmg74KSd7tSKVP1PWLigkAnXdB_PyFgxXNA' class = 'draggable-img' id="image5" draggable="true" /></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div id="target">
+        <text id="promptText">Drop Desired Products Here!</text> <!-- this will be replaced by a <div class = imageGrid> in JavaScript -->
+
+    </div>
+    <button id="reset">Reset Basket</button>
 </div>
-<div id="target">Drop Zone</div>
-
-<button id="reset">Reset example</button>
-
-<script>
-
     
-    const source = document.querySelector("#source");
    
-    source.addEventListener("dragstart", (ev) => {
-    console.log("dragStart");
-    // Change the source element's background color
-    // to show that drag has started
-    ev.currentTarget.classList.add("dragging");
-    // Clear the drag data cache (for all formats/types)
-    ev.dataTransfer.clearData();
-    // Set the drag's format and data.
-    // Use the event target's id for the data
-    ev.dataTransfer.setData("text/plain", ev.target.id);
-    });
-    source.addEventListener("dragend", (ev) =>
-    ev.target.classList.remove("dragging"),
-    );
+
+
+<div id = 'right-panel'>
+    <!-- Hidden input field to store the selected pictures -->
+
+        <table id="shoppingTable">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody id = "shoppingTableBody">
+                <!-- Table content will be generated here -->
+            </tbody>                                                            
+        </table>
+
+    </div>
+</div>
+<script>
+   
+    let selectedImageIds = [];
+    let selectedImageDict = {  };
+    
+    
+    const source = document.querySelectorAll(".draggable-img");
+   
+  source.forEach((image) =>{
+    image.addEventListener("dragstart", (ev) => {
+        console.log("dragStart");
+        // Change the source element's background color
+        // to show that drag has started
+        ev.currentTarget.classList.add("dragging");
+        // Clear the drag data cache (for all formats/types)
+        ev.dataTransfer.clearData();
+        // Set the drag's format and data.
+        // Use the event target's id for the data
+        ev.dataTransfer.setData("text/plain", ev.target.id);
+        });
+        image.addEventListener("dragend", (ev) =>
+        ev.target.classList.remove("dragging"),
+        );
+    }); 
+   
 
     const target = document.querySelector("#target");
+    
     target.addEventListener("dragover", (ev) => {
-    console.log("dragOver");
-    ev.preventDefault();
+        console.log("dragOver");
+        ev.preventDefault();
     });
+
     target.addEventListener("drop", (ev) => {
-    console.log("Drop");
-    ev.preventDefault();
-    // Get the data, which is the id of the source element
-    const data = ev.dataTransfer.getData("text");
-    const source = document.getElementById(data);
-    ev.target.appendChild(source);
+        console.log("Drop");
+        ev.preventDefault();
+        // Get the data, which is the id of the source element
+        const imageId = ev.dataTransfer.getData("text");
+        const source = document.getElementById(imageId);
+        
+        
+
+        selectedImageIds.push(imageId);
+        if(imageId in selectedImageDict){
+            selectedImageDict[imageId] += 1;
+        }
+        else {
+            selectedImageDict[imageId] = 1;
+        }
+
+        if (source) {
+        // Clone the image and add it to the target circle
+        
+        // if this is the first image to be dropped, delete the prompt and add a grid
+            if (selectedImageIds.length == 1){
+                const promptText = document.getElementById('promptText');
+                var newDiv = document.createElement('div');
+                newDiv.setAttribute('id', 'imageGrid');
+                promptText.style.display = 'none';
+                //targetCircle.appendChild(newDiv);   
+            }
+
+            const clonedImage = source.cloneNode(true);
+            ev.target.appendChild(clonedImage);
+
+        function displayTable(){
+            //finally populate the table
+            var shoppingTable = document.getElementById('shoppingTableBody');
+            shoppingTable.innerHTML = '';
+            // Loop through the dictionary and create table rows
+            for (var key in selectedImageDict) {
+                if (selectedImageDict.hasOwnProperty(key)) {
+                    var row = shoppingTable.insertRow();
+                    var cell1 = row.insertCell(0); // Cell for the key
+                    var cell2 = row.insertCell(1); // Cell for the value
+
+                    cell1.innerHTML = key;
+                    cell2.innerHTML = selectedImageDict[key];
+                }
+            }
+        }
+        
+        displayTable();
+
+        }
+        
     });
 
     const reset = document.querySelector("#reset");
-    reset.addEventListener("click", () => document.location.reload());
+    reset.addEventListener("click", function(){
+        selectedImageIds = [];
+        selectedImageDict ={  };
+        while (target.firstChild) {
+            target.removeChild(target.firstChild);
+        }
+        target.appendChild(document.createTextNode("Drag desired products here!"));
+
+        var shoppingTableBody = document.getElementById('shoppingTableBody');
+        while (shoppingTableBody.firstChild) {
+            shoppingTableBody.removeChild(shoppingTableBody.firstChild);
+        }
+    });
 
 </script>
