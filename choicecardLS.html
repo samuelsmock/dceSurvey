@@ -1,0 +1,60 @@
+<style type="text/css">
+
+table {
+    width: 50vw; /* Set column width to 50% of the viewport width */
+    height: 75vh; /* Set table height to 75% of the viewport height */
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th {
+    background-color: lightgray;
+}
+
+.label-column {
+    background-color: lightgray; /* Add background color to the left column */
+}
+</style>
+<div id="basket">{basketBuilder.shown}</div>
+
+<table>
+<tbody>
+<tr>
+    <th class="label-column"> </th>
+    <th>CSA A</th>
+    <th>CSA B</th>
+</tr>
+<tr>
+    <td>Quantity</td>
+    <td id="quantity-a"> </td>
+    <td id="quantity-b"> </td>
+</tr>
+<tr>
+    <td>Composition</td>
+    <td id="composition-a"> </td>
+    <td id="composition-b"> </td>
+</tr>
+<tr>
+    <td>High Nature Value</td>
+    <td id="HNV-a"> </td>
+    <td id="HNV-b"> </td>
+</tr>
+<tr>
+    <td>Price</td>
+    <td id="priceFactor-a"> </td>
+    <td id="priceFactor-b"> </td>
+</tr>
+<tr>
+    <td>Choose CSA:</td>
+    <td><input checked="checked" name="csa" type="radio" value="A" /> CSA A</td>
+    <td><input name="csa" type="radio" value="B" /> CSA B</td>
+</tr>
+</tbody>
+</table>
+
+<script src = './choiceCard.js'>
+
+</script>

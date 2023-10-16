@@ -53,7 +53,10 @@ $(document).ready(function(){
         // if this is the first image to be dropped, delete the prompt and add a grid
             if (selectedImageIds.length == 1){
                 const promptText = document.getElementById('promptText');
-                promptText.parentNode.removeChild(promptText);
+                var newDiv = document.createElement('div');
+                newDiv.setAttribute('id', 'imageGrid');
+                promptText.style.display = 'none';
+                //targetCircle.appendChild(newDiv);   
             }
 
             const clonedImage = source.cloneNode(true);
@@ -78,7 +81,7 @@ $(document).ready(function(){
                 //save the running value to the hidden input element for use in further questions
 
         displayTable();
-        $("#answer{SGQ}").val(selectedImageIds).trigger('keyup');
+        $("#answer{SGQ}").val(JSON.stringify(selectedImageDict)).trigger('keyup');
         }
         
     });
@@ -92,18 +95,16 @@ $(document).ready(function(){
         while (target.firstChild) {
             target.removeChild(target.firstChild);
         }
-
-        //Put the prompt back in
-        const textPrompt = document.createElement("div");
-        textPrompt.id = "promptText";
-        textPrompt.textContent = "Drag desired products here!";
-
-        target.appendChild(textPrompt);
+        target.appendChild(document.createTextNode("Drag desired products here!"));
 
         var shoppingTableBody = document.getElementById('shoppingTableBody');
         while (shoppingTableBody.firstChild) {
             shoppingTableBody.removeChild(shoppingTableBody.firstChild);
         }
-        $("#answer{SGQ}").val([]).trigger('keyup');
-    });   
+        $("#answer{SGQ}").val('').trigger('keyup');
+    });
+    
+        
+        
+      
 });
