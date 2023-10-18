@@ -1,12 +1,12 @@
 
     let selectedImageIds = [];
-    let selectedImageDict = {};
+    let selectedImageDict = {  };
 
 
     const imgNode = document.querySelectorAll(".draggable-img");
 
     imgNode.forEach((image) =>{
-    image.addEventListener("dragstart", (ev) => {
+    image.addEventListener("dragstart", (ev) => { 
         console.log("dragStart");
         // Change the imgNode element's background color
         // to show that drag has started
@@ -17,7 +17,7 @@
         // Set the drag's format and data.
         // Use the event target's id for the data
         ev.dataTransfer.setData("text/plain", ev.target.id);
-        });
+    });
         image.addEventListener("dragend", (ev) =>
         ev.target.classList.remove("dragging"),
         );
@@ -121,7 +121,7 @@
         }
 
         displayTable();
-        //$("#answer{SGQ}").val(selectedImageIds).trigger('keyup');
+        $("#answer{SGQ}").val(selectedImageIds).trigger('keyup');
         }
         
     });
@@ -147,5 +147,5 @@
         while (shoppingTableBody.firstChild) {
             shoppingTableBody.removeChild(shoppingTableBody.firstChild);
         }
-        //$("#answer{SGQ}").val([]).trigger('keyup');
+        $("#answer{SGQ}").val([]).trigger('keyup');
     });   
