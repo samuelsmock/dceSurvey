@@ -1,15 +1,16 @@
-$(document).ready(function(){
+
     let selectedImageIds = [];
-    let selectedImageDict = {  };
+    let selectedImageDict = {};
 
 
-    const source = document.querySelectorAll(".draggable-img");
+    const imgNode = document.querySelectorAll(".draggable-img");
 
-    source.forEach((image) =>{
+    imgNode.forEach((image) =>{
     image.addEventListener("dragstart", (ev) => {
         console.log("dragStart");
-        // Change the source element's background color
+        // Change the imgNode element's background color
         // to show that drag has started
+        
         ev.currentTarget.classList.add("dragging");
         // Clear the drag data cache (for all formats/types)
         ev.dataTransfer.clearData();
@@ -33,32 +34,61 @@ $(document).ready(function(){
     target.addEventListener("drop", (ev) => {
         console.log("Drop");
         ev.preventDefault();
-        // Get the data, which is the id of the source element
+        // Get the data, which is the id of the imgNode element
         const imageId = ev.dataTransfer.getData("text");
-        const source = document.getElementById(imageId);
+        const imgNode = document.getElementById(imageId);
         
         
 
-        selectedImageIds.push(imageId);
-        if(imageId in selectedImageDict){
-            selectedImageDict[imageId] += 1;
-        }
-        else {
-            selectedImageDict[imageId] = 1;
-        }
 
-        if (source) {
+        if (imgNode) {
         // Clone the image and add it to the target circle
         
-        // if this is the first image to be dropped, delete the prompt and add a grid
-            if (selectedImageIds.length == 1){
+        // if this is the first image to be dropped, delete the prompt 
+            if (selectedImageIds.length == 0){
                 const promptText = document.getElementById('promptText');
                 promptText.parentNode.removeChild(promptText);
             }
 
-            const clonedImage = source.cloneNode(true);
-            ev.target.appendChild(clonedImage);
+        // if this is the first drop of this product, add to the target
+            if (!selectedImageDict.hasOwnProperty(imageId)){    
+                const clonedImage = imgNode.cloneNode(true);
+                clonedImage.setAttribute('id', imageId +'-dropped');
+                clonedImage.setAttribute('class', 'single-product');
+                clonedImage.setAttribute('draggable', false);
+                
+                let stackedWrapper = document.createElement('div');
+                stackedWrapper.id = imageId + '-parent';
+                stackedWrapper.className = 'selectedImageWrapper'
 
+                ev.target.appendChild(stackedWrapper);
+
+                
+                stackedWrapper.appendChild(clonedImage);
+                
+            }
+        //// if this is the not the first drop of this product, wrap it in a new div with an additional text. 
+        ///this is styled with css to sit on top of the image
+        if (selectedImageDict.hasOwnProperty(imageId)){    
+            const oldImage= document.getElementById(imageId + '-dropped');
+            
+            if(oldImage){
+                oldImage.className = 'multiple-product';
+                let stackedWrapper = document.getElementById(imageId + '-parent')
+
+                let quantity = document.createElement('span');
+                quantity.id = imageId + '-overlay';
+                quantity.className = 'overlayText'
+                quantity.innerHTML = selectedImageDict[imageId]+1 + 'x';
+                
+                //if there is already a quantity, delete it
+                let oldQuantity = document.getElementById(imageId+ '-overlay');
+                if (oldQuantity){
+                    oldQuantity.remove();}
+                stackedWrapper.appendChild(quantity);
+            }
+           
+        }
         function displayTable(){
             //finally populate the table
             var shoppingTable = document.getElementById('shoppingTableBody');
@@ -75,10 +105,23 @@ $(document).ready(function(){
                 }
             }
         }
-                //save the running value to the hidden input element for use in further questions
+
+        /*save the running value to the hidden input element for use in further questions
+        to do this you need to fire and Expression Manager Function
+        Helpful Forum Post:
+        https://forums.limesurvey.org/index.php/forum/can-i-do-this-with-limesurvey/115486-how-to-insert-answer-via-javascript
+        */
+
+        selectedImageIds.push(imageId);
+        if(imageId in selectedImageDict){
+            selectedImageDict[imageId] += 1;
+        }
+        else {
+            selectedImageDict[imageId] = 1;
+        }
 
         displayTable();
-        $("#answer{SGQ}").val(selectedImageIds).trigger('keyup');
+        //$("#answer{SGQ}").val(selectedImageIds).trigger('keyup');
         }
         
     });
@@ -104,6 +147,5 @@ $(document).ready(function(){
         while (shoppingTableBody.firstChild) {
             shoppingTableBody.removeChild(shoppingTableBody.firstChild);
         }
-        $("#answer{SGQ}").val([]).trigger('keyup');
+        //$("#answer{SGQ}").val([]).trigger('keyup');
     });   
-});
