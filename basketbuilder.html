@@ -21,7 +21,7 @@
 }
 
 #right-panel{
-    flex: 30;
+    width: 25vw;
 
 }
 
@@ -44,18 +44,31 @@
     padding: 3vw;
 }
 
+
+
 .selectedImageWrapper {
-    width: min(12vh, 12vw); /* Adjust the width of the grid items as needed */
-    height: min(12vh, 12vw);
+    width: min(13vh, 13vw); /* Adjust the width of the grid items as needed */
+    height: min(13vh, 13vw);
     /* Adjust the height of the grid items as needed */
     margin: 3vw;
     align-items: center;
     justify-content: center;
+
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    
+}
+
+.overlayText{
+    
+    z-index: 1; /* Ensure the child is on top of other content */
 }
 
 .single-product, .multiple-product {
     width: min(12vh, 12vw);
     height: auto;
+    
 }
 
 
