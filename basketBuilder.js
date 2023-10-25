@@ -123,7 +123,7 @@
         }
 
         displayTable();
-        $("#answer{SGQ}").val(selectedImageIds).trigger('keyup');
+        $("#answer{SGQ}").val(selectedImageIds).trigger('keyup'); // this Expression manager function is explained in comment above
         }
         
     });

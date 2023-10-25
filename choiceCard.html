@@ -1,8 +1,5 @@
-<style type="text/css">
-
-table {
+<style type="text/css">table {
     width: 90vw; /* Set column width to 50% of the viewport width */
-    
     border-collapse: collapse;
 }
 
@@ -17,11 +14,11 @@ th {
 
 .label-column {
     background-color: lightgray; /* Add background color to the left column */
-    
 }
 
 #HNV-a, #HNV-B {
     height: 14vh;
+    padding: 2vw;
 }
 #HNV-a img, #HNV-b img{
     height: 10vh;
@@ -32,7 +29,7 @@ th {
 
 #hiddenCircle{
     width: 50vw; /* Set the desired width and height for the circle */
-    aspect-ratio: 1/1;
+    height: 50vw;
     
     border: 1px solid black; /* Thin black border */
     border-radius: 50%; /* Makes it a circle */
@@ -47,7 +44,7 @@ th {
 
 .quantityWrapper{ /* wrappes the 3 quantity circles in the quantity column*/
     display: flex;
-    flex-direction: row;  
+    flex-direction: row;
     align-content: center;
     align-items: center;
     justify-content: center;
@@ -56,7 +53,7 @@ th {
 
 .compositionWrapper {
     display: flex;
-    flex-direction: row;  
+    flex-direction: row;
     align-content: center;
     align-items: center;
     justify-content: center;
@@ -71,7 +68,6 @@ th {
 }
 
 .quantityCircle{
-    
     border: 1px solid black; /* Thin black border */
     border-radius: 50%; /* Makes it a circle */
     flex-wrap: wrap;
@@ -84,7 +80,6 @@ th {
 }
 
 .compositionCircle{
-    
     border: 1px solid black; /* Thin black border */
     border-radius: 50%; /* Makes it a circle */
     flex-wrap: wrap;
@@ -99,7 +94,6 @@ th {
 .selectedImageWrapper {
     width: 25%; /* dynamic scaling by percentage of parent helps with grid item wrapping*/
     height: 25%;
-    /* Adjust the height of the grid items as needed */
     margin: 8%;
     align-items: center;
     justify-content: center;
@@ -107,7 +101,6 @@ th {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    
 }
 #quantity-a, #quantity-b{
     
@@ -142,51 +135,55 @@ th {
     font-size: 6vw;
     color: red;
 }
-
 </style>
-
 <!--
-The following 2 divs are hidden. The first just contains basket choices from the basketBuidler question in the form of a list that is 
-required for the JavaScript. The Second is a hidden template circle that will be used to visualize quantity and compostion differences
-in the choice card.
+README!!!
+
+The following 2 divs are hidden. The first just contains basket choices (results) from the basketBuidler question in the form of a list. the list format is required for JavaScript in LimneSurvey due to issues parsing curly brackets. The Second is a list of desired csa attributes for the DCE choice cards and contained in the hidden question with id "csaAttributes."  This div contains unformatted text of a csv. It is essential that the formatting for this question is correct (see dceAttributes_TEMPLATE.csv in the survey resources section under survey settings). Best practice is to use this template csv to enter desired values in excel, save the desired values into a csv file, then open that file with a text editor, and copy and paste the unparsed contents of csv file directly into the source ("quellcode") of the csaAttributes question
+
+The hiddenCircle div will be used within the functions, compositionVisualizer and quantityVisualizer to visualize quantity and compostion differences in the choice card and is later made hidden in the JavaScript code after it has been used to populate the table.
 -->
 <div id="basket" style="display: none;">{basketBuilder.shown}</div>
-<div id="hiddenCircle" ></div>
+
+<div id="csa-attributes" style="display: none;">{csaAttributesHIDDEN.question}</div>
+
+<div id="hiddenCircle"> </div>
 
 <table>
-<tbody>
-<tr>
-    <th class="label-column"> </th>
-    <th>CSA A</th>
-    <th>CSA B</th>
-</tr>
-<tr>
-    <td>Quantity</td>
-    <td id="quantity-a"></td>
-    <td id="quantity-b"></td>
-</tr>
-<tr>
-    <td>Composition</td>
-    <td id="composition-a"></td>
-    <td id="composition-b"></td>
-</tr>
-<tr>
-    <td>High Nature Value</td>
-    <td id="HNV-a"></td>
-    <td id="HNV-b"></td>
-</tr>
-<tr>
-    <td>Price</td>
-    <td id="priceFactor-a"></td>
-    <td id="priceFactor-b"></td>
-</tr>
-<tr>
-    <td>Choose CSA:</td>
-    <td class = 'radio-selector'><input checked="checked" name="csa" type="radio" value="A" /> CSA A</td>
-    <td class = 'radio-selector'><input name="csa" type="radio" value="B" /> CSA B</td>
-</tr>
-</tbody>
+	<tbody>
+		<tr>
+			<th class="label-column"> </th>
+			<th>CSA A</th>
+			<th>CSA B</th>
+		</tr>
+		<tr>
+			<td>Quantity</td>
+			<td id="quant-a"> </td>
+			<td id="quant-b"> </td>
+		</tr>
+		<tr>
+			<td>Composition</td>
+			<td id="comp-a"> </td>
+			<td id="comp-b"> </td>
+		</tr>
+		<tr>
+			<td>High Nature Value</td>
+			<td id="HNV-a"> </td>
+			<td id="HNV-b"> </td>
+		</tr>
+		<tr>
+			<td>Price</td>
+			<td id="priceFactor-a"> </td>
+			<td id="priceFactor-b"> </td>
+		</tr>
+		<tr>
+			<td>Choose CSA:</td>
+			<td class="radio-selector"><input checked="checked" name="csa" type="radio" value="A" /> CSA A</td>
+			<td class="radio-selector"><input name="csa" type="radio" value="B" /> CSA B</td>
+		</tr>
+	</tbody>
 </table>
+
 
 <script src = './choiceCard.js'>
 
