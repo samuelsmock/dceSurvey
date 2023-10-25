@@ -83,8 +83,10 @@
                 
                 //if there is already a quantity, delete it
                 let oldQuantity = document.getElementById(imageId+ '-overlay');
+                
                 if (oldQuantity){
-                    oldQuantity.remove();}
+                    oldQuantity.remove();
+                }
                 stackedWrapper.appendChild(quantity);
             }
            

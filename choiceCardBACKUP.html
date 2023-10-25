@@ -1,0 +1,234 @@
+<style type="text/css">table {
+    width: 50vw; /* Set column width to 50% of the viewport width */
+    height: 75vh; /* Set table height to 75% of the viewport height */
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th {
+    background-color: lightgray;
+}
+
+.label-column {
+    background-color: lightgray; /* Add background color to the left column */
+}
+
+#HNV-a, #HNV-B {
+    height: 14vh;
+}
+#HNV-a img, #HNV-b img{
+    height: 10vh;
+    width: 10vh;
+    display: block;
+    margin: 0 auto;
+}
+
+#hiddenCircle{
+    width: min(70vw, 70vh); /* Set the desired width and height for the circle */
+    height: min(70vw, 70vh);
+    border: 1px solid black; /* Thin black border */
+    border-radius: 50%; /* Makes it a circle */
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    padding: 3vw;
+}
+
+
+.selectedImageWrapper {
+    width: min(13vh, 13vw); /* Adjust the width of the grid items as needed */
+    height: min(13vh, 13vw);
+    /* Adjust the height of the grid items as needed */
+    margin: 1vw;
+    align-items: center;
+    justify-content: center;
+
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    
+}
+
+.single-product, .multiple-product {
+    width: min(12vh, 12vw);
+    height: auto;
+    
+}
+</style>
+<div id="basket">{basketBuilder.shown}</div>
+
+<div id="hiddenCircle"> </div>
+
+<table>
+	<tbody>
+		<tr>
+			<th class="label-column"> </th>
+			<th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">CSA A</font></font></th>
+			<th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">CSA B</font></font></th>
+		</tr>
+		<tr>
+			<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Quantity</font></font></td>
+			<td id="quantity-a"> </td>
+			<td id="quantity-b"> </td>
+		</tr>
+		<tr>
+			<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Composition</font></font></td>
+			<td id="composition-a"> </td>
+			<td id="composition-b"> </td>
+		</tr>
+		<tr>
+			<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">High Nature Value</font></font></td>
+			<td id="HNV-a"> </td>
+			<td id="HNV-b"> </td>
+		</tr>
+		<tr>
+			<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Price</font></font></td>
+			<td id="priceFactor-a"> </td>
+			<td id="priceFactor-b"> </td>
+		</tr>
+		<tr>
+			<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Choose CSA:</font></font></td>
+			<td><input checked="checked" name="csa" type="radio" value="A" /><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">CSA A</font></font></td>
+			<td><input name="csa" type="radio" value="B" /><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">CSA B</font></font></td>
+		</tr>
+	</tbody>
+</table>
+<script >
+    console.log(document.getElementById('basket').textContent);
+    
+    //itemList is loaded from HTML file which is populated from basketBuilder Question via
+    // limesurvey's expression script function ({basketBuilder.shown})
+    
+    let itemList =(document.getElementById('basket').textContent.split(','));
+    //let itemList = ['Yogurt','Milk','Soft Cheese','Milk','Yogurt','Butter']
+
+    //it is difficult to pass dictionaries between questions in limesurvey due to issues with
+    //brackets. Therefore we pass the basket as a list and unpack to a dictionary
+    // more info on bracket issue effecting JS dictionaries in LimeSurvey can be found here:
+    //https://manual.limesurvey.org/Workarounds:_Manipulating_a_survey_at_runtime_using_Javascript
+
+
+    let basket = {  };  
+
+    let hiddenCircle = document.getElementById('hiddenCircle');
+
+     // Image URLS
+     var HNVurls = ['/upload/surveys/996739/images/Screen%20Shot%202023-10-17%20at%2012.21.18%20PM.png', 
+     '/upload/surveys/996739/images/Screen%20Shot%202023-10-17%20at%2012.21.37%20PM.png'];
+
+    var productURLs = { 
+        'Hard Cheese': "/upload/surveys/996739/images/picture1.png",
+        'Yogurt': "/upload/surveys/996739/images/picture2.png",
+        'Milk': "/upload/surveys/996739/images/picture3.png",
+        'Soft Cheese': "/upload/surveys/996739/images/picture4.png",
+        'Butter': "/upload/surveys/996739/images/picture5.png",
+     }
+    
+    //unpack the list to a count dictionary
+
+    for (var item of itemList){
+        if (basket.hasOwnProperty(item)){
+            basket[item]+= 1;
+        }else{
+            basket[item] = 1;
+        }
+    }
+
+    // populate hidden circle with basket items
+    
+    for (const item in basket){
+        let stackedWrapper = document.createElement('div');
+        stackedWrapper.id = item + '-parent';
+        stackedWrapper.className = 'selectedImageWrapper';
+
+        const quantity = document.createElement('span');
+        quantity.id = item + '-overlay';
+        quantity.className = 'overlayText';
+        quantity.innerHTML = basket[item] + 'x';
+        
+        const imageElement = document.createElement('img');
+        imageElement.src = productURLs[item];
+        imageElement.setAttribute('id', item + '-dropped');
+        imageElement.setAttribute('class', 'multiple-item');
+
+        stackedWrapper.appendChild(imageElement);
+        stackedWrapper.appendChild(quantity);
+
+        hiddenCircle.appendChild(stackedWrapper);
+                
+    }
+
+    // Image URLS
+    var HNVurls = ['/upload/surveys/996739/images/Screen%20Shot%202023-10-17%20at%2012.21.18%20PM.png', 
+        '/upload/surveys/996739/images/Screen%20Shot%202023-10-17%20at%2012.21.37%20PM.png'];
+
+    csaOptions = { 
+        "a": { 
+            'quantity': 50,
+            'composition': true,
+            'HNV': true,
+            'priceFactor': 2
+        },
+
+        "b": { 
+            'quantity': 25,
+            'composition': false,
+            'HNV': false,
+            "priceFactor": 3
+        }
+    };
+
+    let storePrices = { 
+        "Milk": 1,
+        'Yogurt': 5,
+        'Cottage Cheese': 5,
+        'Soft Cheese': 3,
+        'Cream Cheese': 4
+    };
+
+    // This function calculates the grocery store Cost of all products in the basket
+    function priceCalculator(shoppingCart, priceList){
+        let storeNet = 0;
+        for (const product in priceList){
+            if (basket.hasOwnProperty(product)){
+                storeNet += storePrices[product] * shoppingCart[product];
+            }
+        }
+        return storeNet;
+    }
+
+    //this function dynamically populates the table with the characteristics and calculated price
+    for (const csa in csaOptions) {
+        
+        for (const key in csaOptions[csa]) {
+            console.log(`${ key }-${ csa }`);
+            const cell = document.getElementById(`${ key }-${ csa }`);
+            if (key === 'priceFactor'){
+                cell.textContent = csaOptions[csa][key]*priceCalculator(basket, storePrices);
+            } 
+            else if(key === 'HNV'){
+                if (key){   
+                    const imgElement = document.createElement('img');
+                    imgElement.src = (csaOptions[csa][key] === true) ? HNVurls[1]: HNVurls[0];
+                    cell.appendChild(imgElement);}
+            }else{
+                cell.textContent = csaOptions[csa][key];
+            }
+        }
+    }
+
+    let choice = '';
+
+    // Function to handle radio button change
+    const radioButtons = document.querySelectorAll('input[type="radio"]');
+    radioButtons.forEach(button => {
+        button.addEventListener('change', function () {
+            choice = this.value;
+        });
+    });
+
+</script>

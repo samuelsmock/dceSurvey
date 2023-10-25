@@ -1,13 +1,14 @@
 <style type="text/css">
 
 table {
-    width: 50vw; /* Set column width to 50% of the viewport width */
-    height: 75vh; /* Set table height to 75% of the viewport height */
+    width: 90vw; /* Set column width to 50% of the viewport width */
+    
     border-collapse: collapse;
 }
 
 table, th, td {
     border: 1px solid black;
+    font-size: 2vw;
 }
 
 th {
@@ -16,6 +17,7 @@ th {
 
 .label-column {
     background-color: lightgray; /* Add background color to the left column */
+    
 }
 
 #HNV-a, #HNV-B {
@@ -27,8 +29,129 @@ th {
     display: block;
     margin: 0 auto;
 }
+
+#hiddenCircle{
+    width: 50vw; /* Set the desired width and height for the circle */
+    aspect-ratio: 1/1;
+    
+    border: 1px solid black; /* Thin black border */
+    border-radius: 50%; /* Makes it a circle */
+    
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    display: flex;
+    padding: 3vw;
+    font-size: 1.5vw;
+}
+
+.quantityWrapper{ /* wrappes the 3 quantity circles in the quantity column*/
+    display: flex;
+    flex-direction: row;  
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    padding: 2vw;
+}
+
+.compositionWrapper {
+    display: flex;
+    flex-direction: row;  
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    padding: 2vw;
+}
+
+.radio-selector , #priceFactor-a, #priceFactor-b{
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    padding: 2vw;
+}
+
+.quantityCircle{
+    
+    border: 1px solid black; /* Thin black border */
+    border-radius: 50%; /* Makes it a circle */
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    display: flex;
+    padding: 0.5vw;
+    margin: 0.5vw;
+    font-size: 0.9vw;
+}
+
+.compositionCircle{
+    
+    border: 1px solid black; /* Thin black border */
+    border-radius: 50%; /* Makes it a circle */
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    display: flex;
+    padding: 0.5vw;
+    margin: 0.5vw;
+    font-size: 0.9vw;
+}
+
+.selectedImageWrapper {
+    width: 25%; /* dynamic scaling by percentage of parent helps with grid item wrapping*/
+    height: 25%;
+    /* Adjust the height of the grid items as needed */
+    margin: 8%;
+    align-items: center;
+    justify-content: center;
+
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    
+}
+#quantity-a, #quantity-b{
+    
+    font-size: 2vw;
+    
+    align-items: center;
+}
+.quantityArrow{
+  text-align: center; /* Center the text horizontally */
+  line-height: 2; /* Optional: Adjust line height for vertical centering */
+  display: flex;
+  justify-content: center; /* Center the text vertically */
+  align-items: center; /* Center the text vertically */
+}
+.single-product, .multiple-product {
+    width: 100%;
+    height: auto;
+    
+}
+
+
+.overlayText {
+    
+}
+
+#green-check{
+    font-size: 6vw;
+    color: green;
+}
+
+#red-question{
+    font-size: 6vw;
+    color: red;
+}
+
 </style>
-<div id="basket">{basketBuilder.shown}</div>
+
+<!--
+The following 2 divs are hidden. The first just contains basket choices from the basketBuidler question in the form of a list that is 
+required for the JavaScript. The Second is a hidden template circle that will be used to visualize quantity and compostion differences
+in the choice card.
+-->
+<div id="basket" style="display: none;">{basketBuilder.shown}</div>
+<div id="hiddenCircle" ></div>
 
 <table>
 <tbody>
@@ -39,28 +162,28 @@ th {
 </tr>
 <tr>
     <td>Quantity</td>
-    <td id="quantity-a"> </td>
-    <td id="quantity-b"> </td>
+    <td id="quantity-a"></td>
+    <td id="quantity-b"></td>
 </tr>
 <tr>
     <td>Composition</td>
-    <td id="composition-a"> </td>
-    <td id="composition-b"> </td>
+    <td id="composition-a"></td>
+    <td id="composition-b"></td>
 </tr>
 <tr>
     <td>High Nature Value</td>
-    <td id="HNV-a"> </td>
-    <td id="HNV-b"> </td>
+    <td id="HNV-a"></td>
+    <td id="HNV-b"></td>
 </tr>
 <tr>
     <td>Price</td>
-    <td id="priceFactor-a"> </td>
-    <td id="priceFactor-b"> </td>
+    <td id="priceFactor-a"></td>
+    <td id="priceFactor-b"></td>
 </tr>
 <tr>
     <td>Choose CSA:</td>
-    <td><input checked="checked" name="csa" type="radio" value="A" /> CSA A</td>
-    <td><input name="csa" type="radio" value="B" /> CSA B</td>
+    <td class = 'radio-selector'><input checked="checked" name="csa" type="radio" value="A" /> CSA A</td>
+    <td class = 'radio-selector'><input name="csa" type="radio" value="B" /> CSA B</td>
 </tr>
 </tbody>
 </table>
