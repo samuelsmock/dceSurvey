@@ -1,12 +1,16 @@
 <style type="text/css">#parent{
-    display: flex
+    display: flex;
+  	flex-direction: row;
+	width: 90vw;
+  	padding: 1vw;
 }
 
 #left-panel{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 75vw;
+    width: 55vw;
+    padding:1vw
 }
 
 /* Apply styles to the table */
@@ -20,21 +24,36 @@
     padding: 8px;
 }
 
+td {
+    display: column;
+}
+
+.productRow{
+    display: flex;
+    flex-direction: row;
+    margin: 1vw;
+}
+.description{
+    font-size: 1vw;
+    text-align: center;
+  }
+
 #right-panel{
     width: 25vw;
+    padding:1vw
 
 }
 
 .draggable-img {
-    width: 8vw;
-    margin-left:2vw;
+    width: 6vw;
+    margin: 1vw;
     cursor: pointer;
 }
 
 
 #target {
-    width: min(70vw, 70vh); /* Set the desired width and height for the circle */
-    height: min(70vw, 70vh);
+    width: 40vw; /* Set the desired width and height for the circle */
+    height: 40vw;
     border: 1px solid black; /* Thin black border */
     border-radius: 50%; /* Makes it a circle */
     display: flex;
@@ -42,15 +61,15 @@
     align-content: center;
     justify-content: center;
     padding: 3vw;
+
 }
 
 
 
 .selectedImageWrapper {
-    width: min(13vh, 13vw); /* Adjust the width of the grid items as needed */
-    height: min(13vh, 13vw);
+   
     /* Adjust the height of the grid items as needed */
-    margin: 1vw;
+    margin: 2.5vw;
     align-items: center;
     justify-content: center;
 
@@ -66,52 +85,59 @@
 }
 
 .single-product, .multiple-product {
-    width: min(12vh, 12vw);
+    width: 6vw;
     height: auto;
     
 }
 
+.draggableWrapper{
+    display:flex;
+    flex-direction: column;
+}
 
 h1 {
     text-align: center;
     height: 5vh;
 }
-
 </style>
-<h1>Picture Survey</h1>
-
 <div id="parent">
 <div id="left-panel">
-<table>
-	<tbody>
-		<tr>
-            <!-- 
-			<td><img class="draggable-img" draggable="true" id="Hard Cheese" src="/upload/surveys/996739/images/picture1.png" /></td>
-			<td><img class="draggable-img" draggable="true" id="Yogurt" src="/upload/surveys/996739/images/picture2.png" /></td>
-			<td><img class="draggable-img" draggable="true" id="Milk" src="/upload/surveys/996739/images/picture3.png" /></td>
-			<td><img class="draggable-img" draggable="true" id="Soft Cheese" src="/upload/surveys/996739/images/picture4.png" /></td>
-			<td><img class="draggable-img" draggable="true" id="Butter" src="/upload/surveys/996739/images/picture5.png" /></td>
-			-->
-        <td><img class="draggable-img" draggable="true" id="image1" src="https://fastly.picsum.photos/id/80/200/200.jpg?hmac=uEQ6yExxeaopTOWf3oByB8KMH6Eip3-AVLN5jEMthko" /></td>
-        <td><img class="draggable-img" draggable="true" id="image2" src="https://fastly.picsum.photos/id/955/200/200.jpg?hmac=_m3ln1pswsR9s9hWuWrwY_O6N4wizKmukfhvyaTrkjE" /></td>
-        <td><img class="draggable-img" draggable="true" id="image3" src="https://fastly.picsum.photos/id/585/200/200.jpg?hmac=xPWUtHiddZixyCUwkNykuZcN4myA3sY2ewf9zFRc7oM" /></td>
-        <td><img class="draggable-img" draggable="true" id="image4" src="https://fastly.picsum.photos/id/91/200/200.jpg?hmac=y-8iGl9dOkbHqADPlWuS-rWBHNBWWXlzKcsTDu2WeQo" /></td>
-        <td><img class="draggable-img" draggable="true" id="image5" src="https://fastly.picsum.photos/id/84/200/200.jpg?hmac=6H-uafgNQmg74KSd7tSKVP1PWLigkAnXdB_PyFgxXNA" /></td>
+    <div class = 'productRow'>
+    <div class = "draggableWrapper">
+    <img alt="100g Weichkäse" class="draggable-img" draggable="true" id="Weichkäse" src="/upload/surveys/996739/images/picture1.png" /> 
+    <text class="description"> 100g Weichkäse </text>
+    </div>
 
 
-		</tr>
-	</tbody>
-</table>
 
-<div id="target"><text id="promptText">Drop Desired Products Here!</text> <!-- this will be replaced by a <div class = imageGrid> in JavaScript --></div>
-<button id="reset" type="button">Reset basket</button></div>
+    <div class = "draggableWrapper">
+        <img alt="100g Quark" class="draggable-img" draggable="true" id="Quark" src="/upload/surveys/996739/images/picture2.png" /> 
+        <text class="description"> 100g Quark </text>
+    </div>
+
+
+    <div class = "draggableWrapper">
+        <img alt="500ml Milch" class="draggable-img" draggable="true" id="Milch" src="/upload/surveys/996739/images/picture3.png" /> <text class="description"> 500ml Milch </text> 
+    </div>    
+    
+        <div class = "draggableWrapper">
+        <img alt="100g Joghurt" class="draggable-img" draggable="true" id="Joghurt" src="/upload/surveys/996739/images/picture4.png" /> <text class="description"> 100g Joghurt </text> 
+        </div>    
+    
+        <div class = "draggableWrapper">
+        <img alt="100g Schnittkäse" class="draggable-img" draggable="true" id="Schnittkäse" src="/upload/surveys/996739/images/picture5.png" /> <text class="description"> 100g Schnittkäse </text>
+        </div>
+    </div>   
+
+<div id="target"><text id="promptText">Ziehen Sie Ihre gewünschten Produkte hierher!</text> <!-- this will be replaced by a <div class = imageGrid> in JavaScript --></div>
+<button id="reset" type="button">Korb zurücksetzen</button></div>
 
 <div id="right-panel"><!-- Hidden input field to store the selected pictures -->
 <table id="shoppingTable">
 	<thead>
 		<tr>
-			<th>Product</th>
-			<th>Quantity</th>
+			<th>Milcherzeugnis</th>
+			<th>Menge</th>
 		</tr>
 	</thead>
 	<tbody id="shoppingTableBody"><!-- Table content will be generated here -->
@@ -119,6 +145,3 @@ h1 {
 </table>
 <input id="basket" name="996739X1913X6987" type="hidden" value="hello" /></div>
 </div>
-<script src = './basketBuilder.js'>
-
-</script>

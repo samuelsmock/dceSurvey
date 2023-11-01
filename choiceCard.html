@@ -6,7 +6,9 @@
 table, th, td {
     border: 1px solid black;
     font-size: 2vw;
+    
 }
+
 
 th {
     background-color: lightgray;
@@ -60,10 +62,11 @@ th {
     padding: 2vw;
 }
 
-.radio-selector , #priceFactor-a, #priceFactor-b{
-    align-self: center;
+.radio-selector, #priceFactor-a, #priceFactor-b{
+    display: row;
+    text-align: center;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     padding: 2vw;
 }
 
@@ -177,10 +180,15 @@ The hiddenCircle div will be used within the functions, compositionVisualizer an
 			<td id="priceFactor-b"> </td>
 		</tr>
 		<tr>
-			<td>Choose CSA:</td>
-			<td class="radio-selector"><input checked="checked" name="csa" type="radio" value="A" /> CSA A</td>
+			<td rowspan = '2'>Choose CSA:</td>
+			<td class="radio-selector"><input  name="csa" type="radio" value="A" /> CSA A</td>
 			<td class="radio-selector"><input name="csa" type="radio" value="B" /> CSA B</td>
 		</tr>
+        <tr>
+            <td colspan="2" class="radio-selector">
+                <input name="csa" type="radio" value="Neither" /> I wouldn't choose either
+            </td>
+        </tr>
 	</tbody>
 </table>
 
