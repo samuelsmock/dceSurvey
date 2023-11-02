@@ -1,12 +1,12 @@
 <style type="text/css">table {
-    width: 90vw; /* Set column width to 50% of the viewport width */
+    width: 85vw; 
     border-collapse: collapse;
+    align-self: center;
 }
 
 table, th, td {
     border: 1px solid black;
-    font-size: 2vw;
-    
+    font-size: 1.5vw;
 }
 
 
@@ -18,15 +18,12 @@ th {
     background-color: lightgray; /* Add background color to the left column */
 }
 
-#HNV-a, #HNV-B {
-    height: 14vh;
-    padding: 2vw;
-}
 #HNV-a img, #HNV-b img{
-    height: 10vh;
-    width: 10vh;
+    height: 18vh;
+    width: 18vh;
     display: block;
     margin: 0 auto;
+    padding: 1vw;
 }
 
 #hiddenCircle{
@@ -50,7 +47,7 @@ th {
     align-content: center;
     align-items: center;
     justify-content: center;
-    padding: 2vw;
+    padding: 1vw;
 }
 
 .compositionWrapper {
@@ -59,7 +56,7 @@ th {
     align-content: center;
     align-items: center;
     justify-content: center;
-    padding: 2vw;
+    padding: 1vw;
 }
 
 .radio-selector, #priceFactor-a, #priceFactor-b{
@@ -95,9 +92,12 @@ th {
 }
 
 .selectedImageWrapper {
-    width: 25%; /* dynamic scaling by percentage of parent helps with grid item wrapping*/
-    height: 25%;
-    margin: 8%;
+    width: 20%; /* dynamic scaling by percentage of parent helps with grid item wrapping*/
+    height: 20%;
+    margin-left: 4%;
+  	margin-right: 4%;
+  	margin-top: 7%;
+  	margin-bottom: 7%;
     align-items: center;
     justify-content: center;
 
@@ -148,8 +148,6 @@ The hiddenCircle div will be used within the functions, compositionVisualizer an
 -->
 <div id="basket" style="display: none;">{basketBuilder.shown}</div>
 
-<div id="csa-attributes" style="display: none;">{csaAttributesHIDDEN.question}</div>
-
 <div id="hiddenCircle"> </div>
 
 <table>
@@ -160,39 +158,32 @@ The hiddenCircle div will be used within the functions, compositionVisualizer an
 			<th>CSA B</th>
 		</tr>
 		<tr>
-			<td>Quantity</td>
+			<td>Menge- Schwankungen</td>
 			<td id="quant-a"> </td>
 			<td id="quant-b"> </td>
 		</tr>
 		<tr>
-			<td>Composition</td>
+			<td>Inhalts- Schwankungen</td>
 			<td id="comp-a"> </td>
 			<td id="comp-b"> </td>
 		</tr>
 		<tr>
-			<td>High Nature Value</td>
+			<td>Hoher Naturwert</td>
 			<td id="HNV-a"> </td>
 			<td id="HNV-b"> </td>
 		</tr>
 		<tr>
-			<td>Price</td>
+			<td>Preis</td>
 			<td id="priceFactor-a"> </td>
 			<td id="priceFactor-b"> </td>
 		</tr>
 		<tr>
-			<td rowspan = '2'>Choose CSA:</td>
-			<td class="radio-selector"><input  name="csa" type="radio" value="A" /> CSA A</td>
+			<td rowspan="2">Wählen Sie eine CSA:</td>
+			<td class="radio-selector"><input name="csa" type="radio" value="A" /> CSA A</td>
 			<td class="radio-selector"><input name="csa" type="radio" value="B" /> CSA B</td>
 		</tr>
-        <tr>
-            <td colspan="2" class="radio-selector">
-                <input name="csa" type="radio" value="Neither" /> I wouldn't choose either
-            </td>
-        </tr>
+		<tr>
+			<td class="radio-selector" colspan="2"><input name="csa" type="radio" value="Neither" />Ich würde keinen von beiden wählen</td>
+		</tr>
 	</tbody>
 </table>
-
-
-<script src = './choiceCard.js'>
-
-</script>

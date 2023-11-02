@@ -51,8 +51,9 @@ jQuery(document).ready(function(){
                 var cell1 = row.insertCell(0); // Cell for the key
                 var cell2 = row.insertCell(1); // Cell for the value
 
+                const measurement = document.getElementById(key).alt.split(' ')[0]
                 cell1.innerHTML = key;
-                cell2.innerHTML = selectedImageDict[key];
+                cell2.innerHTML = selectedImageDict[key] + ' x ' + measurement;
             }
         }
     }
@@ -174,7 +175,7 @@ jQuery(document).ready(function(){
         //Put the prompt back in
         const textPrompt = document.createElement("div");
         textPrompt.id = "promptText";
-        textPrompt.textContent = "Drag desired products here!";
+        textPrompt.textContent = "Ziehen Sie Ihre gewünschten Produkte hierher!";
 
         target.appendChild(textPrompt);
 
